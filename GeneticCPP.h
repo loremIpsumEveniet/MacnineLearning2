@@ -181,18 +181,4 @@ namespace Genetic {
 			}
 		}
 	}
-
-
-	//void InitPopulation(NeuralNetworkModel** EmptyGenePool, int NumberOfModelsPerEpoch, int* NetworkLayers) {
-
-	//	if (sizeof(NetworkLayers) == sizeof(unsigned int)) {
-	//		std::cout << "Error NetworkLayers Has To Be A Constant Array";
-	//		return;
-	//	}
-
-	//	EmptyGenePool = (NeuralNetworkModel**)malloc(sizeof(NeuralNetworkModel**) * NumberOfModelsPerEpoch);
-	//	for (int ID = 0; ID < NumberOfModelsPerEpoch; ID++) {
-	//		EmptyGenePool[ID] = new NeuralNetworkModel(NetworkLayers, sizeof(NetworkLayers) / sizeof(int));
-	//	}
-	//}
 }

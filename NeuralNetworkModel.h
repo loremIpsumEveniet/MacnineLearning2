@@ -83,7 +83,10 @@ struct NeuralNetworkModel {
 
 					TwoDArrayOfAllOutputs[Layer][Node] += TwoDArrayOfAllOutputs[Layer - 1][PrevNode] * TwoDArrayOfAllWeights[Layer][PrevNode * (Node+1)];
 				}
-				//TwoDArrayOfAllOutputs[Layer][Node] += TwoDArrayOfAllBiases[Layer][Node];
+				TwoDArrayOfAllOutputs[Layer][Node] += TwoDArrayOfAllBiases[Layer][Node];
+				//if (Layer < NetworkLayers-1) {
+					TwoDArrayOfAllOutputs[Layer][Node] = 1 / 1 + exp(-1 * TwoDArrayOfAllOutputs[Layer][Node]);
+				//}
 			}
 		}
 	}

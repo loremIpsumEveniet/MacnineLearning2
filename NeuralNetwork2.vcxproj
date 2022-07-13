@@ -144,7 +144,9 @@
   <ItemGroup>
     <ClInclude Include="GeneticCPP.h" />
     <ClInclude Include="MergeSort.h" />
+    <ClInclude Include="NeuralNetwork.h" />
     <ClInclude Include="NeuralNetworkModel.h" />
+    <ClInclude Include="ParseCSVForNeuralNetwork.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
