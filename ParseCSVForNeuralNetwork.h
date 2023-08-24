@@ -3,7 +3,6 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-#include <vector>
 
 using std::string;
 using std::stringstream;
@@ -11,7 +10,6 @@ using std::stringstream;
 
 struct CSV_NeuralNetworkData {
 
-   
 private:
     double** double_Make2DArray(int SizeX, int SizeY) {
 
@@ -22,6 +20,14 @@ private:
         return TempPointer;
     }
 public:
+    double** NetworkInputArray;
+    double** NetworkCorrectArray;
+
+    int INPUT_SIZE_X;
+    int CORRECT_SIZE_X;
+
+    int DataSize_Y_ZEROINDEX;
+
     void double_Print2DArray(double** Array, int SizeX, int SizeY) {
 
         for (int i = 0; i < SizeY; i++) {
@@ -31,26 +37,40 @@ public:
             std::cout << "\n";
         }
     }
+    void double_GeneralPrintInputData() {
+    
+        for (int i = 0; i < DataSize_Y_ZEROINDEX; i++) {
+            for (int j = 0; j < INPUT_SIZE_X; j++) {
+                std::cout << " " << NetworkInputArray[i][j];
+            }
+            for (int j = 0; j < CORRECT_SIZE_X; j++) {
+                std::cout << " " << NetworkCorrectArray[i][j];
+            }
+            std::cout << "\n";
+        }
+    }
 
-    double** NetworkInputArray;
-    double** NetworkCorrectArray;
-
-    CSV_NeuralNetworkData(int* NetworkLayers, int NumberOfNetworkLayers, double EMPTY_DATA_FLAG, int NUMBER_OF_DATA_X, int NUMBER_OF_DATA_Y, std::string CSV_FILE_PATH) {
+    CSV_NeuralNetworkData(int* NetworkLayers, int NumberOfNetworkLayers, double EMPTY_DATA_FLAG, int NUMBER_OF_DATA_X, int NUMBER_OF_DATA_Y_ONEINDEX, std::string CSV_FILE_PATH) {
        
         if (NetworkLayers[0] != (NUMBER_OF_DATA_X - NetworkLayers[NumberOfNetworkLayers - 1])) {
             std::cout << "CSV Not Compatible With Neural Network Input/Output";
             return;
         }
 
-        NetworkInputArray = double_Make2DArray(NetworkLayers[0], NUMBER_OF_DATA_Y);
-        NetworkCorrectArray = double_Make2DArray(NetworkLayers[NumberOfNetworkLayers - 1], NUMBER_OF_DATA_Y);
+        INPUT_SIZE_X = NetworkLayers[0];
+        CORRECT_SIZE_X = NetworkLayers[NumberOfNetworkLayers - 1];
+
+        DataSize_Y_ZEROINDEX = NUMBER_OF_DATA_Y_ONEINDEX + 1;
+
+        NetworkInputArray = double_Make2DArray(NetworkLayers[0], DataSize_Y_ZEROINDEX);
+        NetworkCorrectArray = double_Make2DArray(NetworkLayers[NumberOfNetworkLayers - 1], DataSize_Y_ZEROINDEX);
 
 
         std::ifstream myfile;
         myfile.open(CSV_FILE_PATH);
 
 
-        for (int i = 0; i < NUMBER_OF_DATA_Y; i++) {
+        for (int i = 0; i < DataSize_Y_ZEROINDEX; i++) {
 
             string Line;
             std::getline(myfile, Line);
